@@ -1,5 +1,6 @@
 import {Formik, FormikErrors, FormikProps} from "formik";
 import React from 'react';
+import Debug from "./Debug";
 import FieldComponent from "./FieldComponent";
 import HookComponent from "./HookComponent";
 
@@ -26,10 +27,7 @@ const PromotionForm = (
         <HookComponent/>
         <FieldComponent/>
         <button type="submit">Submit</button>
-        <div className="well">
-            <p>Hook: {values.myHookValue}</p>
-            <p>Field: {values.myFieldValue}</p>
-        </div>
+        <Debug/>
     </form>
 );
 
