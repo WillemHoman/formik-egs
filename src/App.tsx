@@ -1,26 +1,55 @@
+import {Formik, FormikErrors, FormikProps} from "formik";
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import FieldComponent from "./FieldComponent";
+import HookComponent from "./HookComponent";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const initialValues = {
+    myHookValue: "Hooks Rule",
+    myFieldValue: "Fields Suck"
+};
+
+export interface FormValues {
+    myHookValue: string
+    myFieldValue: string
 }
 
+const PromotionForm = (
+    {
+        handleSubmit,
+        handleChange,
+        handleBlur,
+        values,
+        errors,
+    }: FormikProps<FormValues>) => (
+    <form onSubmit={handleSubmit}>
+        <HookComponent/>
+        <FieldComponent/>
+        <button type="submit">Submit</button>
+        <div className="well">
+            <p>Hook: {values.myHookValue}</p>
+            <p>Field: {values.myFieldValue}</p>
+        </div>
+    </form>
+);
+
+const App: React.FC = () => (
+    <>
+        <h1>Formik</h1>
+        <Formik
+            initialValues={initialValues}
+            onSubmit={(values: FormValues) => console.log(values)}
+            validate={(values: FormValues) => {
+                const errors: FormikErrors<FormValues> = {};
+                if (!values.myHookValue) {
+                    errors.myHookValue = "Hook Value Required";
+                }
+                if (!values.myFieldValue) {
+                    errors.myFieldValue = "Field Value Required";
+                }
+                return errors;
+            }}
+            component={PromotionForm}/>
+    </>
+);
 export default App;
