@@ -5,7 +5,7 @@ import {
 import React, {FunctionComponent} from "react";
 
 const HookComponent: FunctionComponent<{}> = (props) => {
-    const [field, meta] = useField("myHookValue") as [FieldInputProps<string>, FieldMetaProps<string>];
+    const [field, meta] = useField("myHookValue");
     return (
         <div>
             <label>
